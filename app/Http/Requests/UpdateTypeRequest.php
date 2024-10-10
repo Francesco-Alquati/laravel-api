@@ -13,7 +13,7 @@ class UpdateTypeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,14 @@ class UpdateTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|max:150'
+        ];
+    }
+    public function message()
+    {
+        return [
+            'name.required' => "Il nome della tipologia è obbligatorio",
+            'name.max' => "Il nome della tipologia deve essere lungo al massimo :max caratteri",
         ];
     }
 }
