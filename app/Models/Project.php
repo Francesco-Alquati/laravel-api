@@ -13,11 +13,15 @@ class Project extends Model
 
     protected $fillable =['name', 'slug', 'summary', 'image', 'type_id'];
 
-    public static function generateSlug($title){
-        return Str::slug($title, '-');
+    public static function generateSlug($name){
+        return Str::slug($name, '-');
     }
 
     public function type(){
         return $this->belongsTo(Type::class);
+    }
+
+    public function technologies(){
+        return $this->belongsToMany(Technology::class);
     }
 }
