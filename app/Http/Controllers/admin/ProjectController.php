@@ -66,7 +66,7 @@ class ProjectController extends Controller
 
             $technologies = $request->technologies;
             $project->technologies()->attach($technologies);
-            
+
         }
 
         return redirect()->route('admin.projects.index');
@@ -93,9 +93,9 @@ class ProjectController extends Controller
     {
 
         $types = Type::all();
+        $technologies = Technology::all();
 
-
-        return view('admin.projects.edit', compact('project', 'types'));
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     } 
 
     /**
@@ -120,6 +120,14 @@ class ProjectController extends Controller
         $form_data['slug'] = Project::generateSlug($form_data['name']);
 
         $project->update($form_data);
+
+        if($request->has('technologies')){
+
+            $project->technologies()->sync($request->$technologies);
+        }
+        else{
+            $project->technologies()->sync([]);
+        }
 
         return redirect()->route('admin.projects.index');
 
