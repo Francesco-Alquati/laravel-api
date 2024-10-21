@@ -32,6 +32,19 @@ class LeadController extends Controller
             'phone.max' => 'Il numero di telefono deve essere lungo al massimo :max caratteri',
             'content.required' => 'Il contenuto della email è obbligatorio',
         ]);
+
+        if($validator->fails()){
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
+
+        $new_lead = new Lead();
+        $new_lead->fill($form_data);
+
+        $new_lead->save();
+
     }
     
 }
