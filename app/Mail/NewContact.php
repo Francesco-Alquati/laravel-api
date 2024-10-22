@@ -21,7 +21,7 @@ class NewContact extends Mailable
      */
     public function __construct()
     {
-        $this->lead = $_lead;
+        $this->lead = $lead;
     }
 
     /**
